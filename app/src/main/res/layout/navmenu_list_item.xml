@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/navmenu_padding"
+    android:paddingStart="@dimen/navmenu_padding"
+    android:paddingTop="@dimen/navmenu_padding"
+    android:paddingBottom="@dimen/navmenu_padding"
+    android:background="@color/navmenu_background">
+
+</TextView>
