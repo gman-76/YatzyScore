@@ -22,4 +22,12 @@
     <string name="player_name_hint">Player Name</string>
     <string name="player_edit_photo">Edit</string>
 
+    <string name="new_game_dialog_title">New Game Setup</string>
+    <string name="new_game_description_hint">Description</string>
+
+    <string name="game_type_yatzy">Yatzy</string>
+    <string name="game_type_yatzee">Yatzee</string>
+    <string name="game_type_prompt">Game Type</string>
+
+    <string name="scoreboard_title">Scoreboard</string>
 </resources>

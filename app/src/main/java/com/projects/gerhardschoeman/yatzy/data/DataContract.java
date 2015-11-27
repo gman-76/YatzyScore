@@ -43,6 +43,8 @@ public class DataContract {
 
         public static final String COL_STARTED = "Started";
         public static final String COL_FINISHED = "Finished";
+        public static final String COL_TYPE = "Type";
+        public static final String COL_DESCRIPTION = "Description";
 
         public static Uri getUriFromID(int id){
             return CONTENT_URI.buildUpon().appendPath(Integer.toString(id)).build();
@@ -63,6 +65,22 @@ public class DataContract {
         public static final String COL_PLAYERID = "PlayerID";
         public static final String COL_SCOREID = "ScoreID";
         public static final String COL_SCORE = "Score";
+
+        public static Uri getUriFromGameID(int id){
+            return CONTENT_URI.buildUpon().appendQueryParameter(gameQueryID,Integer.toString(id)).build();
+        }
+
+        public static Uri getUriFromGameAndPlayer(int gameID,int playerID){
+            return CONTENT_URI.buildUpon().appendPath(Integer.toString(gameID)).appendPath(Integer.toString(playerID)).build();
+        }
+
+        public static Uri getUriFromGameAndPlayerAndScore(int gameID,int playerID,int scoreID){
+            return CONTENT_URI.buildUpon()
+                    .appendPath(Integer.toString(gameID))
+                    .appendPath(Integer.toString(playerID))
+                    .appendPath(Integer.toString(scoreID))
+                    .build();
+        }
     }
 
 }

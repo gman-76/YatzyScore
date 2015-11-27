@@ -19,8 +19,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.projects.gerhardschoeman.yatzy.game.Game;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,
+        AddGameDialog.AddGameDlgCallbacks
+{
+    private static final String LOGTAG = MainActivity.class.getSimpleName();
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -39,6 +44,7 @@ public class MainActivity extends AppCompatActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
     }
 
     @Override
@@ -75,4 +81,13 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void newGameReady(Game game) {
+        GameFragment f = new GameFragment();
+        f.setGame(game);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, f)
+                .commit();
+    }
 }

@@ -58,7 +58,7 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                NavigationDrawerCallbacks cb = (NavigationDrawerCallbacks)getActivity();
+                NavigationDrawerCallbacks cb = (NavigationDrawerCallbacks) getActivity();
                 cb.onNavigationDrawerItemSelected(position);
             }
         });
@@ -66,6 +66,7 @@ public class NavigationDrawerFragment extends Fragment {
                 getActivity(),
                 R.layout.navmenu_list_item,
                 getActivity().getResources().getStringArray(R.array.NavOptions)));
+
         return view;
     }
 
@@ -87,6 +88,8 @@ public class NavigationDrawerFragment extends Fragment {
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
+
+        mDrawerLayout.openDrawer(mFragmentContainerView);
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);

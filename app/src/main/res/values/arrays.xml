@@ -5,4 +5,9 @@
         <item>@string/navMenu_Players</item>
         <item>@string/navMenu_About</item>
     </string-array>
+
+    <string-array name="GameTypes">
+        <item>@string/game_type_yatzy</item>
+        <item>@string/game_type_yatzee</item>
+    </string-array>
 </resources>

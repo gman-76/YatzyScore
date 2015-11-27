@@ -16,10 +16,13 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import com.projects.gerhardschoeman.yatzy.data.DataContract;
 import com.projects.gerhardschoeman.yatzy.data.DataProjections;
+import com.projects.gerhardschoeman.yatzy.game.Game;
 
 import java.util.Date;
 
@@ -30,13 +33,26 @@ public class AddGameDialog extends DialogFragment implements LoaderManager.Loade
 
     private final int LOADER_ID = 0;
 
-    AvailablePlayerAdapter ad;
+    private AvailablePlayerAdapter ad;
+    private Spinner gameTypeSelect;
+    private EditText description;
+
+    public interface AddGameDlgCallbacks{
+        void newGameReady(Game game);
+    }
+
+    private AddGameDlgCallbacks callbacks;
+
+    public void setCallbacks(AddGameDlgCallbacks cb){
+        callbacks = cb;
+    }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Choose players:");
+
+        builder.setCustomTitle(LayoutInflater.from(getActivity()).inflate(R.layout.dialog_add_game_title, null));
 
         ad = new AvailablePlayerAdapter(getActivity(),null,0);
 
@@ -45,6 +61,9 @@ public class AddGameDialog extends DialogFragment implements LoaderManager.Loade
         lv.setAdapter(ad);
 
         getLoaderManager().initLoader(LOADER_ID,null,this);
+
+        gameTypeSelect = (Spinner)v.findViewById(R.id.spinNewGameType);
+        description = (EditText)v.findViewById(R.id.txtNewGameDescription);
 
         builder.setView(v);
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -57,19 +76,8 @@ public class AddGameDialog extends DialogFragment implements LoaderManager.Loade
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(ad.chosenPlayers.size()>0){
-                    ContentValues cv = new ContentValues();
-                    cv.put(DataContract.GameEntry.COL_STARTED, System.currentTimeMillis());
-                    Uri newGame = getActivity().getContentResolver().insert(DataContract.GameEntry.CONTENT_URI,cv);
-                    String gameID = newGame.getPathSegments().get(1);
-                    for(String p:ad.chosenPlayers){
-                        Cursor pDetails = getActivity().getContentResolver().query(DataContract.PlayerEntry.getUriFromName(p), DataProjections.Player_ALL.COLUMNS,null,null,null);
-                        pDetails.moveToFirst();
-                        String playerID = pDetails.getString(DataProjections.Player_ALL.COL_ID);
-                        cv = new ContentValues();
-                        cv.put(DataContract.GameHistory.gameQueryID,gameID);
-                        cv.put(DataContract.GameHistory.playerQueryID,playerID);
-                        
-                    }
+                    Game game = new Game(getActivity(),ad.chosenPlayers,(int)gameTypeSelect.getSelectedItemId(),description.getText().toString());
+                    if(callbacks!=null) callbacks.newGameReady(game);
                 }
             }
         });

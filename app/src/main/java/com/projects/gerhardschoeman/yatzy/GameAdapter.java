@@ -7,6 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 
+import com.projects.gerhardschoeman.yatzy.data.DataProjections;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Gerhard on 26/11/2015.
  */
@@ -24,5 +30,13 @@ public class GameAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         GameListViewHolder vh  = (GameListViewHolder)view.getTag();
+        vh.id.setText(cursor.getString(DataProjections.Game_ALL.COL_ID));
+        String d = cursor.getString(DataProjections.Game_ALL.COL_DESCRIPTION);
+        vh.description.setText(d==null || d.length()<1 ? "n/a" : d);
+        long st = cursor.getLong(DataProjections.Game_ALL.COL_STARTED);
+        Date startDate = new Date(st);
+        SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+        vh.startTime.setText(format.format(startDate));
+        vh.gameType.setText(cursor.getString(DataProjections.Game_ALL.COL_TYPE));
     }
 }

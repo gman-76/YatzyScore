@@ -40,6 +40,7 @@ public class DataProvider extends ContentProvider {
     private static final int HISTORY_BY_GAME_ID = 6;
     private static final int HISTORY_BY_PLAYER_ID = 7;
     private static final int HISTORY_GAME_PLAYER = 8;
+    private static final int HISTORY_GAME_PLAYER_SCORE = 9;
 
     private static class MyUriMatcher extends UriMatcher{
         public MyUriMatcher(int code) {
@@ -55,6 +56,7 @@ public class DataProvider extends ContentProvider {
                 case ALL_GAMES:
                 case GAME_BY_ID:
                 case HISTORY_GAME_PLAYER:
+                case HISTORY_GAME_PLAYER_SCORE:
                     return m;
                 case ALL_HISTORY:
                     if(uri.getQueryParameter(GameHistory.playerQueryID)!=null){
@@ -77,7 +79,8 @@ public class DataProvider extends ContentProvider {
         uriMatcher.addURI(DataContract.BASE_AUTHORITY, DataContract.PATH_GAME,ALL_GAMES);
         uriMatcher.addURI(DataContract.BASE_AUTHORITY, DataContract.PATH_GAME + "/#",GAME_BY_ID);
         uriMatcher.addURI(DataContract.BASE_AUTHORITY, DataContract.PATH_HISTORY,ALL_HISTORY);
-        uriMatcher.addURI(DataContract.BASE_AUTHORITY, DataContract.PATH_HISTORY + "/*/*", HISTORY_GAME_PLAYER);
+        uriMatcher.addURI(DataContract.BASE_AUTHORITY, DataContract.PATH_HISTORY + "/#/#/#", HISTORY_GAME_PLAYER_SCORE);
+        uriMatcher.addURI(DataContract.BASE_AUTHORITY, DataContract.PATH_HISTORY + "/#/#", HISTORY_GAME_PLAYER);
     }
 
     @Override
@@ -93,6 +96,7 @@ public class DataProvider extends ContentProvider {
             case HISTORY_GAME_PLAYER: return GameHistory.BASE_ITEM_TYPE;
             case HISTORY_BY_GAME_ID: return GameHistory.BASE_ITEM_TYPE;
             case HISTORY_BY_PLAYER_ID: return GameHistory.BASE_ITEM_TYPE;
+            case HISTORY_GAME_PLAYER_SCORE: return GameHistory.BASE_ITEM_TYPE;
         }
         throw new UnsupportedOperationException("Unknown uri in getType(): " + uri);
     }
@@ -152,6 +156,14 @@ public class DataProvider extends ContentProvider {
                 selectionArgs = new String[]{gameID,playerID};
                 return db.query(GameHistory.TABLE_NAME,projection,selection,selectionArgs,null,null,sortOrder);
             }
+            case HISTORY_GAME_PLAYER_SCORE:{
+                String gameID = uri.getPathSegments().get(1);
+                String playerID = uri.getPathSegments().get(2);
+                String scoreID = uri.getPathSegments().get(3);
+                selection = GameHistory.COL_GAMEID + "=? AND " + GameHistory.COL_PLAYERID + "=? AND " + GameHistory.COL_SCOREID + "=?";
+                selectionArgs = new String[]{gameID,playerID,scoreID};
+                return db.query(GameHistory.TABLE_NAME,projection,selection,selectionArgs,null,null,sortOrder);
+            }
         }
         return null;
     }
@@ -198,6 +210,8 @@ public class DataProvider extends ContentProvider {
                 }
             }
             break;
+            default:
+                throw new UnsupportedOperationException("Unsupported uri for insert " + uri);
         }
         getContext().getContentResolver().notifyChange(uri,null);
         return retUri;
@@ -217,6 +231,18 @@ public class DataProvider extends ContentProvider {
                 ret = db.update(PlayerEntry.TABLE_NAME,values,selection,selectionArgs);
             }
             break;
+            case HISTORY_GAME_PLAYER_SCORE:{
+                Log.d(LOGTAG,"Update by history by game,player,score id");
+                String gameID = uri.getPathSegments().get(1);
+                String playerID = uri.getPathSegments().get(2);
+                String scoreID = uri.getPathSegments().get(3);
+                selection = GameHistory.COL_GAMEID + "=? AND " + GameHistory.COL_PLAYERID + "=? AND " + GameHistory.COL_SCOREID + "=?";
+                selectionArgs = new String[]{gameID,playerID,scoreID};
+                ret = db.update(PlayerEntry.TABLE_NAME,values,selection,selectionArgs);
+            }
+            break;
+            default:
+                throw new UnsupportedOperationException("Unsupported uri for update " + uri);
         }
         return ret;
     }
@@ -240,6 +266,8 @@ public class DataProvider extends ContentProvider {
                 ret = db.delete(PlayerEntry.TABLE_NAME,selection,selectionArgs);
             }
             break;
+            default:
+                throw new UnsupportedOperationException("Unsupported uri for delete " + uri);
         }
         return ret;
     }
