@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:id="@+id/diceLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/d1Layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/d1_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_one_unselected"/>
+
+            <ImageView
+                android:id="@+id/d1_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_two_unselected"/>
+
+            <ImageView
+                android:id="@+id/d1_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_three_unselected"/>
+
+            <ImageView
+                android:id="@+id/d1_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_four_unselected"/>
+
+            <ImageView
+                android:id="@+id/d1_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_five_unselected"/>
+
+            <ImageView
+                android:id="@+id/d1_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_six_unselected"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/d2Layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/d2_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_one_unselected"/>
+
+            <ImageView
+                android:id="@+id/d2_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_two_unselected"/>
+
+            <ImageView
+                android:id="@+id/d2_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_three_unselected"/>
+
+            <ImageView
+                android:id="@+id/d2_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_four_unselected"/>
+
+            <ImageView
+                android:id="@+id/d2_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_five_unselected"/>
+
+            <ImageView
+                android:id="@+id/d2_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_six_unselected"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/d3Layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/d3_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_one_unselected"/>
+
+            <ImageView
+                android:id="@+id/d3_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_two_unselected"/>
+
+            <ImageView
+                android:id="@+id/d3_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_three_unselected"/>
+
+            <ImageView
+                android:id="@+id/d3_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_four_unselected"/>
+
+            <ImageView
+                android:id="@+id/d3_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_five_unselected"/>
+
+            <ImageView
+                android:id="@+id/d3_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_six_unselected"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/d4Layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/d4_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_one_unselected"/>
+
+            <ImageView
+                android:id="@+id/d4_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_two_unselected"/>
+
+            <ImageView
+                android:id="@+id/d4_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_three_unselected"/>
+
+            <ImageView
+                android:id="@+id/d4_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_four_unselected"/>
+
+            <ImageView
+                android:id="@+id/d4_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_five_unselected"/>
+
+            <ImageView
+                android:id="@+id/d4_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_six_unselected"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/d5Layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/d5_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_one_unselected"/>
+
+            <ImageView
+                android:id="@+id/d5_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_two_unselected"/>
+
+            <ImageView
+                android:id="@+id/d5_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_three_unselected"/>
+
+            <ImageView
+                android:id="@+id/d5_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_four_unselected"/>
+
+            <ImageView
+                android:id="@+id/d5_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_five_unselected"/>
+
+            <ImageView
+                android:id="@+id/d5_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/dice_six_unselected"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lstAvailableMoves"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/diceLayout">
+
+    </ListView>
+
+</RelativeLayout>

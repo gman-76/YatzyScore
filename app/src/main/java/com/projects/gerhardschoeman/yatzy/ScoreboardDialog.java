@@ -31,6 +31,12 @@ public class ScoreboardDialog extends DialogFragment{
 
     private Game mGame;
 
+    private AddGameDialog.AddGameDlgCallbacks callbacks;
+
+    public void setCallbacks(AddGameDialog.AddGameDlgCallbacks cb){
+        callbacks = cb;
+    }
+
     public void setGame(Game game){
         Log.d(LOGTAG,"Setting game");
         mGame = game;
@@ -48,7 +54,7 @@ public class ScoreboardDialog extends DialogFragment{
         Log.d(LOGTAG, "onCreateDialog");
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        ad = new ScoreboardAdapter(getActivity(),mGame.getSortedPlayers());
+        ad = new ScoreboardAdapter(getActivity(),mGame.getSortedByNamePlayers());
 
         builder.setCustomTitle(LayoutInflater.from(getActivity()).inflate(R.layout.scoreboard_title,null));
 
@@ -58,19 +64,28 @@ public class ScoreboardDialog extends DialogFragment{
 
         builder.setView(v);
 
-        builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        if(mGame.done() || callbacks==null){
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-            }
-        });
+                }
+            });
+        }else {
+            builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    callbacks.newGameReady(mGame);
+                }
+            });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-            }
-        });
+                }
+            });
+        }
 
         return builder.create();
     }

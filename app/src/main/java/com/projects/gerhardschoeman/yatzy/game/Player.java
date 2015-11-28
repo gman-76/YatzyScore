@@ -20,13 +20,17 @@ public class Player {
     private String name;
     private int id;
     private byte[] photo;
+    private int gameType;
+    private boolean bonus;
 
     private ArrayList<ScoreGroup> availableMoves = new ArrayList<>();
 
     public int getID() {return id;}
 
-    public Player(Context context,String playerName){
+    public Player(Context context,String playerName,int type){
         mContext = context;
+
+        gameType = type;
 
         Cursor c = mContext.getContentResolver().query(DataContract.PlayerEntry.getUriFromName(playerName),
                 DataProjections.Player_ALL.COLUMNS,null,null,null);
@@ -36,8 +40,10 @@ public class Player {
         photo = c.getBlob(DataProjections.Player_ALL.COL_PHOTO);
     }
 
-    public Player(Context context,int playerID){
+    public Player(Context context,int playerID,int type){
         mContext = context;
+
+        gameType = type;
 
         Cursor c = mContext.getContentResolver().query(DataContract.PlayerEntry.getUriFromID(playerID),
                 DataProjections.Player_ALL.COLUMNS,null,null,null);
@@ -55,17 +61,31 @@ public class Player {
         return false;
     }
 
+    public boolean gotBonus(){
+        return bonus;
+    }
+
     public void createMovesFor(int gameType){
         availableMoves = ScoreGroupFactory.getListByType(gameType);
     }
 
-    public void playMove(int id,int score){
+    public void setMoveScore(int id,int score){
         for(ScoreGroup sg:availableMoves){
             if(sg.getID()==id && !sg.hasPlayed()){
-                sg.play(score);
+                sg.setExistingScore(score);
                 break;
             }
         }
+    }
+
+    public ArrayList<ScoreGroup> getAvailableMoves(){
+        ArrayList<ScoreGroup> remaining  = new ArrayList<>();
+        for(ScoreGroup sg:availableMoves){
+            if(!sg.hasPlayed()){
+                remaining.add(sg);
+            }
+        }
+        return remaining;
     }
 
     public void save(int gameID){
@@ -88,11 +108,32 @@ public class Player {
     }
 
     public int getTotalScore(){
-        int ret = 0;
+        int upperSection = 0;
+        int lowerSection = 0;
+        bonus = false;
         for(ScoreGroup sg:availableMoves){
             if(sg.hasPlayed()){
-                ret += sg.getMarkedScore();
+                if(sg.isUpperSection()) upperSection += sg.getMarkedScore(); else lowerSection += sg.getMarkedScore();
             }
+        }
+        if(upperSection>=63) {
+            bonus=true;
+            switch (gameType) {
+                case Game.GameTypes.YATZY:
+                    upperSection += 50;
+                    break;
+                case Game.GameTypes.YATZEE:
+                    upperSection += 35;
+                    break;
+            }
+        }
+        return upperSection + lowerSection;
+    }
+
+    public int getMovesRemaining(){
+        int ret = 0;
+        for(ScoreGroup sg:availableMoves){
+            if(!sg.hasPlayed()) ret++;
         }
         return ret;
     }

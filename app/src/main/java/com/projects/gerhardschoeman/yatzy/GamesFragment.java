@@ -60,9 +60,10 @@ public class GamesFragment extends Fragment implements LoaderManager.LoaderCallb
                 Cursor c = (Cursor)parent.getItemAtPosition(position);
                 int gameID = c.getInt(DataProjections.Game_ALL.COL_ID);
                 Game game = new Game(getActivity(),gameID);
-                Log.d(LOGTAG,"Create game ready to show scoreboard");
+                Log.d(LOGTAG, "Create game ready to show scoreboard");
                 ScoreboardDialog dg = new ScoreboardDialog();
                 dg.setGame(game);
+                dg.setCallbacks((MainActivity)getActivity());
                 dg.show(getFragmentManager(),"SCOREBOARDDLG");
             }
         });

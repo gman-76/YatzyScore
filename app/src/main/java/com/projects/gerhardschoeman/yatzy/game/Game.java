@@ -20,33 +20,15 @@ import java.util.List;
 
 /**
  * Created by Gerhard on 27/11/2015.
-
-public static class TurnTypes{
-    public static final int count = 15;
-    public static final int ONES = 0;
-    public static final int TWOS = 1;
-    public static final int THREES = 2;
-    public static final int FOURS = 3;
-    public static final int FIVES = 4;
-    public static final int SIXES = 5;
-    public static final int PAIR = 6;
-    public static final int TWOPAIR = 7;
-    public static final int THREEKIND = 8;
-    public static final int FOURKIND = 9;
-    public static final int SMALLSTRAIGHT = 10;
-    public static final int LRGSTRAIGHT = 11;
-    public static final int FULLHOUSE = 12;
-    public static final int CHANCE = 13;
-    public static final int YATZY = 14;
-}
  */
+
 public class Game {
 
     private static final String LOGTAG = Game.class.getSimpleName();
 
     public static class GameTypes{
-        public static int YATZY = 0;
-        public static int YATZEE = 1;
+        public static final int YATZY = 0;
+        public static final int YATZEE = 1;
     }
 
     private int id;
@@ -57,6 +39,8 @@ public class Game {
     private ArrayList<Player> players = new ArrayList<Player>();
 
     private Context mContext;
+
+    public int getID(){return id;}
 
     public Game(Context context, int gameID){
         mContext = context;
@@ -78,7 +62,7 @@ public class Game {
             int playerID = pCursor.getInt(DataProjections.History_ALL.COL_PLAYERID);
             Player player=null;
             if(!added.contains(playerID)) {
-                player = new Player(mContext, playerID);
+                player = new Player(mContext, playerID,gameType);
                 player.createMovesFor(gameType);
                 players.add(player);
                 added.add(playerID);
@@ -92,8 +76,9 @@ public class Game {
             }
             int scoreid = pCursor.getInt(DataProjections.History_ALL.COL_SCOREID);
             int score = pCursor.getInt(DataProjections.History_ALL.COL_SCORE);
-            if(score>=0)
-            player.playMove(scoreid,score);
+            if(score>=0) {
+                player.setMoveScore(scoreid, score);
+            }
         }
     }
 
@@ -109,28 +94,48 @@ public class Game {
         cv.put(GameEntry.COL_FINISHED,endTime);
         cv.put(GameEntry.COL_TYPE,gameType);
         cv.put(GameEntry.COL_DESCRIPTION,description);
-        Uri newGame = mContext.getContentResolver().insert(GameEntry.CONTENT_URI,cv);
+        Uri newGame = mContext.getContentResolver().insert(GameEntry.CONTENT_URI, cv);
         Log.d(LOGTAG, "got new game uri " + newGame);
         id = Integer.parseInt(newGame.getPathSegments().get(1));
 
         for(String p:chosen){
-            Player np = new Player(mContext,p);
+            Player np = new Player(mContext,p,gameType);
             np.createMovesFor(gameType);
             np.save(id);
             players.add(np);
         }
     }
 
-    public ArrayList<Player> getSortedPlayers(){
+    public ArrayList<Player> getSortedByNamePlayers(){
         Collections.sort(players, new Comparator<Player>() {
             @Override
             public int compare(Player lhs, Player rhs) {
                 Integer lhsScore = lhs.getTotalScore();
                 Integer rhsScore = rhs.getTotalScore();
                 if(lhsScore==rhsScore) return lhs.getName().compareTo(rhs.getName());
-                return lhsScore.compareTo(rhsScore);
+                return rhsScore.compareTo(lhsScore);
             }
         });
         return players;
+    }
+
+    public ArrayList<Player> getSortedByMovesRemainingPlayers(){
+        Collections.sort(players, new Comparator<Player>() {
+            @Override
+            public int compare(Player lhs, Player rhs) {
+                Integer lhsScore = lhs.getMovesRemaining();
+                Integer rhsScore = rhs.getMovesRemaining();
+                if(lhsScore==rhsScore) return lhs.getName().compareTo(rhs.getName());
+                return rhsScore.compareTo(lhsScore);
+            }
+        });
+        return players;
+    }
+
+    public boolean done(){
+        for(Player p:players){
+            if(p.getMovesRemaining()>0) return false;
+        }
+        return true;
     }
 }

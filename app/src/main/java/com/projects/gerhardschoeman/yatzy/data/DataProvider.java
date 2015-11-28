@@ -238,7 +238,7 @@ public class DataProvider extends ContentProvider {
                 String scoreID = uri.getPathSegments().get(3);
                 selection = GameHistory.COL_GAMEID + "=? AND " + GameHistory.COL_PLAYERID + "=? AND " + GameHistory.COL_SCOREID + "=?";
                 selectionArgs = new String[]{gameID,playerID,scoreID};
-                ret = db.update(PlayerEntry.TABLE_NAME,values,selection,selectionArgs);
+                ret = db.update(GameHistory.TABLE_NAME,values,selection,selectionArgs);
             }
             break;
             default:

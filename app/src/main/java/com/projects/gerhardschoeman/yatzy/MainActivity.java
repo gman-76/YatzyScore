@@ -19,11 +19,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.projects.gerhardschoeman.yatzy.data.DataContract;
 import com.projects.gerhardschoeman.yatzy.game.Game;
+import com.projects.gerhardschoeman.yatzy.game.Player;
+import com.projects.gerhardschoeman.yatzy.game.ScoreGroup;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
-        AddGameDialog.AddGameDlgCallbacks
+        AddGameDialog.AddGameDlgCallbacks,
+        GameFragment.Callbacks,
+        PlayMoveConfirmationDialog.Callbacks
 {
     private static final String LOGTAG = MainActivity.class.getSimpleName();
 
@@ -83,11 +88,32 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void newGameReady(Game game) {
-        GameFragment f = new GameFragment();
+        GameFragment currentGameFragment = new GameFragment();
+        currentGameFragment.setGame(game);
+        currentGameFragment.setCallbacks(this);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, currentGameFragment)
+                .commit();
+    }
+
+    @Override
+    public void nextPlayer(Game game, Player player) {
+        CurrentPlayerFragment f = new CurrentPlayerFragment();
         f.setGame(game);
+        f.setPlayer(player);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, f)
                 .commit();
+    }
+
+    @Override
+    public void playMove(Game game, Player player, ScoreGroup sg) {
+        //make sure we play the scoregroup actually belonging to the player
+        //not a temp group created for pair and two pair scenarios
+        player.setMoveScore(sg.getID(),sg.getPredictedScore());
+        sg.play(this,game.getID(),player.getID());
+        newGameReady(game);
     }
 }
