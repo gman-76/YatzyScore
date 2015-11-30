@@ -127,8 +127,9 @@ public class CurrentPlayerFragment extends Fragment implements Dice.Callback{
             final int d4Value = d4.getFaceValue();
             final int d5Value = d5.getFaceValue();
             ArrayList<ScoreGroup> availableMoves = mPlayer.getAvailableMoves();
-            for(ScoreGroup sg:availableMoves){
-                sg.getScore(d1Value, d2Value, d3Value, d4Value, d5Value, availableMoves);
+            int s = availableMoves.size(); //fix the size here because SG can potentially add additional moves (see one pair)
+            for(int sg=0;sg<s;++sg){
+                availableMoves.get(sg).getScore(d1Value, d2Value, d3Value, d4Value, d5Value, availableMoves);
             }
             Collections.sort(availableMoves, new Comparator<ScoreGroup>() {
                 @Override

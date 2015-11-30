@@ -91,10 +91,11 @@ public class NavigationDrawerFragment extends Fragment {
 
         mDrawerLayout.openDrawer(mFragmentContainerView);
 
-        ActionBar actionBar = getActionBar();
+        /*ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setIcon(R.drawable.menu);
         actionBar.setHomeButtonEnabled(true);
+        */
     }
 
     private ActionBar getActionBar() {

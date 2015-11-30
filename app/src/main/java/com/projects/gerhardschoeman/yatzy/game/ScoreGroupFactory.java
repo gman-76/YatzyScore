@@ -22,6 +22,12 @@ public class ScoreGroupFactory {
         availableGroups.add(new SGFourOfKind());
         availableGroups.add(new SGFullHouse());
         availableGroups.add(new SGPair());
+        availableGroups.add(new SGTwoPair());
+        availableGroups.add(new SGThreeOfKindYahtzee());
+        availableGroups.add(new SGFourOfKindYahtzee());
+        availableGroups.add(new SGFullHouseYahtzee());
+        availableGroups.add(new SGSmallStraightYahtzee());
+        availableGroups.add(new SGLargeStraightYahtzee());
     };
 
     public static ArrayList<ScoreGroup> getListByType(int type){

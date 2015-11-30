@@ -6,6 +6,7 @@
     android:paddingStart="@dimen/navmenu_padding"
     android:paddingTop="@dimen/navmenu_padding"
     android:paddingBottom="@dimen/navmenu_padding"
-    android:background="@color/navmenu_background">
+    android:background="@color/navmenu_background"
+    android:textColor="@android:color/black">
 
 </TextView>

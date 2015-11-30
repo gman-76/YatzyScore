@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6356ff</color>
+    <color name="colorPrimaryLight">#3AB503</color>
+    <color name="colorPrimary">#0A6C03</color>
+    <color name="colorAccent">#D50000</color>
+
     <color name="menuText">#ffffff</color>
 
     <color name="navmenu_background">#ffffffff</color>
     <color name="navmenu_unknown_circle_bg">#cccccc</color>
+
 </resources>

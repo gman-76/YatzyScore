@@ -31,7 +31,7 @@ public class SGTwos extends ScoreGroup {
     public ArrayList<Integer> getSupportedGameTypes() {
         ArrayList<Integer> r = new ArrayList<>();
         r.add(Game.GameTypes.YATZY);
-        r.add(Game.GameTypes.YATZEE);
+        r.add(Game.GameTypes.YAHTZEE);
         return r;
     }
 

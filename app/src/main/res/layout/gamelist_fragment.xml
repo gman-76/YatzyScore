@@ -1,33 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/lstGames"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/toolbar_height"
         >
 
-    </ListView>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tbGameList"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            >
 
-    <android.support.design.widget.FloatingActionButton
-        app:fabSize="normal"
-        app:elevation="6dp"
-        app:pressedTranslationZ="12dp"
+            <TextView
+                android:id="@+id/tbGameListTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gamelist_toolbar_title"
+                android:textColor="@color/menuText"/>
 
-        android:id="@+id/btAddGame"
-        android:src="@drawable/fab_add"
+        </android.support.v7.widget.Toolbar>
 
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="16dp">
+    </android.support.design.widget.AppBarLayout>
 
-    </android.support.design.widget.FloatingActionButton>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</RelativeLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#cccccc"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:text="Unfinished Games"/>
+
+                    <ImageView
+                        android:id="@+id/btShowMoreLessUnFinished"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/more"/>
+                </RelativeLayout>
+
+                <ListView
+                    android:id="@+id/lstGamesUnfinished"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    >
+                </ListView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#cccccc"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:text="Finished Games"/>
+
+                    <ImageView
+                        android:id="@+id/btShowMoreLessFinished"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/more"/>
+                </RelativeLayout>
+
+                <ListView
+                    android:id="@+id/lstGamesFinished"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    >
+                </ListView>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <android.support.design.widget.FloatingActionButton
+            app:fabSize="normal"
+            app:elevation="8dp"
+            app:pressedTranslationZ="16dp"
+
+            android:id="@+id/btAddGame"
+            android:src="@drawable/fab_add"
+
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="16dp">
+
+        </android.support.design.widget.FloatingActionButton>
+
+    </RelativeLayout>
+
+</LinearLayout>

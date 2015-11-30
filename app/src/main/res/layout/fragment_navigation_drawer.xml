@@ -2,19 +2,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:elevation="16dp"
+    android:fitsSystemWindows="true">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:src="@drawable/dice"
-        android:scaleType="centerInside"/>
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:src="@drawable/cup_and_dice_light"
+        android:scaleType="fitXY"/>
 
     <ListView
         android:id="@+id/lstNavDrawerOptions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#cccc"
+        android:background="#ffffff"
         android:choiceMode="singleChoice"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"

@@ -30,7 +30,6 @@ public class SGThreeOfKind extends ScoreGroup {
     public ArrayList<Integer> getSupportedGameTypes() {
         ArrayList<Integer> r = new ArrayList<>();
         r.add(Game.GameTypes.YATZY);
-        r.add(Game.GameTypes.YATZEE);
         return r;
     }
 
@@ -45,21 +44,21 @@ public class SGThreeOfKind extends ScoreGroup {
         int fives = (d1==5 ? 1 : 0) + (d2==5 ? 1 : 0) + (d3==5 ? 1 : 0) + (d4==5 ? 1 : 0) + (d5==5 ? 1 : 0);
         int sixes = (d1==6 ? 1 : 0) + (d2==6 ? 1 : 0) + (d3==6 ? 1 : 0) + (d4==6 ? 1 : 0) + (d5==6 ? 1 : 0);
         if(ones>2) {
-            predictedScore = ones * 1;
+            predictedScore = 3 * 1;
             description += "1,1,1";
         }else if(twos>2) {
-            predictedScore = twos * 2;
+            predictedScore = 3 * 2;
             description += "2,2,2";
         }else if(threes>2) {
-            predictedScore = threes * 3;
+            predictedScore = 3 * 3;
             description += "3,3,3";
         }else if(fours>2) {
-            predictedScore = fours * 4;
+            predictedScore = 3 * 4;
             description += "4,4,4";
         }else if(fives>2) {
-            predictedScore = fives * 5;
+            predictedScore = 3 * 5;
             description += "5,5,5";
-        }else if(sixes>2){ predictedScore = sixes*6;
+        }else if(sixes>2){ predictedScore = 3*6;
             description += "6,6,6";
         }
         return predictedScore;

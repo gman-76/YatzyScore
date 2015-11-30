@@ -122,7 +122,7 @@ public class Player {
                 case Game.GameTypes.YATZY:
                     upperSection += 50;
                     break;
-                case Game.GameTypes.YATZEE:
+                case Game.GameTypes.YAHTZEE:
                     upperSection += 35;
                     break;
             }

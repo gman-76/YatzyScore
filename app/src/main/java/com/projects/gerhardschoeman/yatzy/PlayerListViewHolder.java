@@ -57,10 +57,12 @@ public class PlayerListViewHolder implements View.OnTouchListener {
             case MotionEvent.ACTION_MOVE: {
                 float x = event.getX() + v.getTranslationX();
                 float deltaX = x - downX;
-                Log.d("VH", "moving " + Float.toString(deltaX) + " in view " + Integer.toString(v.getWidth()) + " tileview width " + Integer.toString(tileView.getWidth()));
-                lastDeltaX = (int)deltaX;
-                if(deltaX>0) {
-                    setMargin(lastDeltaX);
+                if(Math.abs(deltaX)>20) {
+                    Log.d("VH", "moving " + Float.toString(deltaX) + " in view " + Integer.toString(v.getWidth()) + " tileview width " + Integer.toString(tileView.getWidth()));
+                    lastDeltaX = (int) deltaX;
+                    if (deltaX > 0) {
+                        setMargin(lastDeltaX);
+                    }
                 }
                 break;
             }

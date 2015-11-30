@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DataDBHelper extends SQLiteOpenHelper {
 
     private static final String dbName = "yatzy.db";
-    private static final int dbVersion = 3;
+    private static final int dbVersion = 4;
 
     public DataDBHelper(Context context) {
         super(context, dbName, null, dbVersion);
@@ -27,7 +27,9 @@ public class DataDBHelper extends SQLiteOpenHelper {
         sql = "CREATE TABLE " + DataContract.GameEntry.TABLE_NAME + " (" +
             DataContract.GameEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             DataContract.GameEntry.COL_STARTED + " INTEGER NOT NULL," +
-            DataContract.GameEntry.COL_FINISHED + " INTEGER)";
+            DataContract.GameEntry.COL_FINISHED + " INTEGER," +
+            DataContract.GameEntry.COL_TYPE + " INTEGER NOT NULL," +
+            DataContract.GameEntry.COL_DESCRIPTION + " TEXT)";
         db.execSQL(sql);
 
         sql = "CREATE TABLE " + DataContract.GameHistory.TABLE_NAME + " (" +
@@ -53,6 +55,7 @@ public class DataDBHelper extends SQLiteOpenHelper {
             db.execSQL(sql);
         }else {
             db.execSQL("DROP TABLE IF EXISTS " + DataContract.GameHistory.TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS " + DataContract.GameEntry.TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS " + DataContract.PlayerEntry.TABLE_NAME);
             onCreate(db);
         }

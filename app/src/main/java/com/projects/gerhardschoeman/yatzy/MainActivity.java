@@ -28,7 +28,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
         AddGameDialog.AddGameDlgCallbacks,
         GameFragment.Callbacks,
-        PlayMoveConfirmationDialog.Callbacks
+        PlayMoveConfirmationDialog.Callbacks,
+        ToolbarNavMenuCallbacks
 {
     private static final String LOGTAG = MainActivity.class.getSimpleName();
 
@@ -115,5 +116,11 @@ public class MainActivity extends AppCompatActivity
         player.setMoveScore(sg.getID(),sg.getPredictedScore());
         sg.play(this,game.getID(),player.getID());
         newGameReady(game);
+    }
+
+    @Override
+    public void onClicked() {
+        DrawerLayout dl = (DrawerLayout) findViewById(R.id.drawer_layout);
+        dl.openDrawer(findViewById(R.id.navigation_drawer));
     }
 }

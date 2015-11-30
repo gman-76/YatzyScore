@@ -28,7 +28,7 @@ public class Game {
 
     public static class GameTypes{
         public static final int YATZY = 0;
-        public static final int YATZEE = 1;
+        public static final int YAHTZEE = 1;
     }
 
     private int id;

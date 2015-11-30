@@ -35,7 +35,7 @@
             android:layout_alignParentLeft="true"
             android:text="@string/game_type_prompt"
             android:layout_centerVertical="true"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@android:color/black"/>
 
         <Spinner
@@ -59,7 +59,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="@string/new_game_description_hint"/>
+        android:hint="@string/new_game_description_hint"
+        android:textCursorDrawable="@drawable/edittext_cursor"
+        android:backgroundTint="#cccccc"
+        android:textColor="@android:color/black"/>
 
 
 </LinearLayout>
