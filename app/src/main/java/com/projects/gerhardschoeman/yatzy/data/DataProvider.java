@@ -241,6 +241,14 @@ public class DataProvider extends ContentProvider {
                 ret = db.update(GameHistory.TABLE_NAME,values,selection,selectionArgs);
             }
             break;
+            case GAME_BY_ID: {
+                Log.d(LOGTAG,"Update by game id");
+                String id = uri.getPathSegments().get(1);
+                selection = GameEntry._ID + "=?";
+                selectionArgs = new String[]{id};
+                ret = db.update(GameEntry.TABLE_NAME,values,selection,selectionArgs);
+            }
+            break;
             default:
                 throw new UnsupportedOperationException("Unsupported uri for update " + uri);
         }

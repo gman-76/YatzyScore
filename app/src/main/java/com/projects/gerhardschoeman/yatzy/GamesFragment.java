@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -25,18 +26,11 @@ import com.projects.gerhardschoeman.yatzy.game.Game;
 /**
  * Created by Gerhard on 26/11/2015.
  */
-public class GamesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>
+public class GamesFragment extends Fragment
 {
     private static final String LOGTAG = GamesFragment.class.getSimpleName();
 
-    private final int LOADER_UNFINISHED = 0;
-    private final int LOADER_FINISHED = 1;
-
-    private GameAdapter adUnFinished;
-    private GameAdapter adFinished;
-
-    private boolean unfinishedMore = false;
-    private boolean finishedMore = false;
+    private GameAdapter ad;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,10 +40,8 @@ public class GamesFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public void onResume() {
-        Log.d(LOGTAG,"onResume()");
+        Log.d(LOGTAG, "onResume()");
         super.onResume();
-        getLoaderManager().restartLoader(LOADER_UNFINISHED, null, this);
-        getLoaderManager().restartLoader(LOADER_FINISHED, null, this);
     }
 
     @Nullable
@@ -58,56 +50,21 @@ public class GamesFragment extends Fragment implements LoaderManager.LoaderCallb
         Log.d(LOGTAG, "onCreateView()");
         View rootView = inflater.inflate(R.layout.gamelist_fragment,container,false);
 
-        adUnFinished = new GameAdapter(getActivity(),null,0);
-        adFinished = new GameAdapter(getActivity(),null,0);
+        ad = new GameAdapter(getActivity());
 
-        ListView lv = (ListView)rootView.findViewById(R.id.lstGamesUnfinished);
-        lv.setAdapter(adUnFinished);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ExpandableListView lv = (ExpandableListView)rootView.findViewById(R.id.lstGames);
+        lv.setAdapter(ad);
+        lv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showScoreBoard(parent, position);
-            }
-        });
-
-        ImageView moreless = (ImageView)rootView.findViewById(R.id.btShowMoreLessUnFinished);
-        moreless.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageView imgView = (ImageView)v;
-                if(!unfinishedMore){
-                    imgView.setImageDrawable(getActivity().getDrawable(R.drawable.less));
-                    unfinishedMore = true;
-                    LayoutParams lv.getLayoutParams()
-                    lv.setLayoutParams();
-                }else{
-                    imgView.setImageDrawable(getActivity().getDrawable(R.drawable.more));
-                    unfinishedMore = false;
-                }
-            }
-        });
-
-        moreless = (ImageView)rootView.findViewById(R.id.btShowMoreLessFinished);
-        moreless.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageView imgView = (ImageView)v;
-                if(!finishedMore){
-                    imgView.setImageDrawable(getActivity().getDrawable(R.drawable.less));
-                    finishedMore = true;
-                }else{
-                    imgView.setImageDrawable(getActivity().getDrawable(R.drawable.more));
-                    finishedMore = false;
-                }
-            }
-        });
-
-        lv = (ListView)rootView.findViewById(R.id.lstGamesFinished);
-        lv.setAdapter(adFinished);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showScoreBoard(parent,position);
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                GameAdapter.GameData gd = (GameAdapter.GameData)ad.getChild(groupPosition, childPosition);
+                Game game = new Game(getActivity(), gd.id);
+                Log.d(LOGTAG, "Create game ready to show scoreboard");
+                ScoreboardDialog dg = new ScoreboardDialog();
+                dg.setGame(game);
+                dg.setCallbacks((MainActivity) getActivity());
+                dg.show(getFragmentManager(), "SCOREBOARDDLG");
+                return true;
             }
         });
 
@@ -132,61 +89,6 @@ public class GamesFragment extends Fragment implements LoaderManager.LoaderCallb
         });
 
         return rootView;
-    }
-
-    private void showScoreBoard(AdapterView<?> parent, int position){
-        Cursor c = (Cursor) parent.getItemAtPosition(position);
-        int gameID = c.getInt(DataProjections.Game_ALL.COL_ID);
-        Game game = new Game(getActivity(), gameID);
-        Log.d(LOGTAG, "Create game ready to show scoreboard");
-        ScoreboardDialog dg = new ScoreboardDialog();
-        dg.setGame(game);
-        dg.setCallbacks((MainActivity) getActivity());
-        dg.show(getFragmentManager(), "SCOREBOARDDLG");
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String so = DataContract.GameEntry.COL_STARTED + " DESC";
-        switch(id){
-            case LOADER_UNFINISHED:
-                return new CursorLoader(getActivity(),
-                        DataContract.GameEntry.CONTENT_URI,
-                        DataProjections.Game_ALL.COLUMNS,
-                        DataContract.GameEntry.COL_FINISHED+" < 0",null,so);
-            case LOADER_FINISHED:
-                return new CursorLoader(getActivity(),
-                        DataContract.GameEntry.CONTENT_URI,
-                        DataProjections.Game_ALL.COLUMNS,
-                        DataContract.GameEntry.COL_FINISHED+" > 0",null,so);
-        }
-        return null;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-        switch(loader.getId()){
-            case LOADER_UNFINISHED:
-                adUnFinished.swapCursor(data);
-                break;
-            case LOADER_FINISHED:
-                adFinished.swapCursor(data);
-                break;
-        }
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        switch(loader.getId()){
-            case LOADER_UNFINISHED:
-                adUnFinished.swapCursor(null);
-                break;
-            case LOADER_FINISHED:
-                adFinished.swapCursor(null);
-                break;
-        }
     }
 
     @Override

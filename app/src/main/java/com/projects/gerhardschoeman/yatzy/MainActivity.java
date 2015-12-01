@@ -114,8 +114,18 @@ public class MainActivity extends AppCompatActivity
         //make sure we play the scoregroup actually belonging to the player
         //not a temp group created for pair and two pair scenarios
         player.setMoveScore(sg.getID(),sg.getPredictedScore());
-        sg.play(this,game.getID(),player.getID());
-        newGameReady(game);
+        sg.play(this, game.getID(), player.getID());
+        if(game.done()){
+            //update finish time
+            game.updateDone();
+            //show score board
+            ScoreboardDialog dg = new ScoreboardDialog();
+            dg.setGame(game);
+            dg.setCallbacks(this);
+            dg.show(getSupportFragmentManager(), "SCOREBOARDDLG");
+        }else {
+            newGameReady(game);
+        }
     }
 
     @Override

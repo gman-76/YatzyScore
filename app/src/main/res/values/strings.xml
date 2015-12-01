@@ -32,4 +32,13 @@
     <string name="scoreboard_title">Scoreboard</string>
 
     <string name="gamelist_toolbar_title">Game History</string>
+
+    <string name="gamelist_unfinished_group">Games in Progress</string>
+    <string name="gamelist_finished_group">Finished Games</string>
+    <string name="gamelist_game_no_description">No description</string>
+
+    <string name="gamedetail_number">Game #:</string>
+    <string name="gamedetail_type">Game Type:</string>
+    <string name="gamedetail_starttime">Start Time:</string>
+    <string name="gamedetail_endtime">End Time:</string>
 </resources>

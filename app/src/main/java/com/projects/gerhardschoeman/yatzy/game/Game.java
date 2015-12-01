@@ -138,4 +138,11 @@ public class Game {
         }
         return true;
     }
+
+    public void updateDone(){
+        endTime = System.currentTimeMillis();
+        ContentValues cv = new ContentValues();
+        cv.put(GameEntry.COL_FINISHED,endTime);
+        mContext.getContentResolver().update(GameEntry.getUriFromID(id),cv,null,null);
+    }
 }

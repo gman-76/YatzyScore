@@ -48,6 +48,7 @@
             android:id="@+id/spinNewGameType"
             android:entries="@array/GameTypes"
             android:prompt="@string/game_type_prompt"
+            android:theme="@style/SpinnerStyle"
             >
 
         </Spinner>
