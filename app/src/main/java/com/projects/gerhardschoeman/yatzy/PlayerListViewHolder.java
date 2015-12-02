@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -33,11 +34,13 @@ public class PlayerListViewHolder implements View.OnTouchListener {
     private LinearLayout tileView;
     private float downX;
     private int lastDeltaX;
+    private ListView listview;
 
     private TouchCallback touchCallback;
 
-    public PlayerListViewHolder(View v,TouchCallback cb){
+    public PlayerListViewHolder(View v,TouchCallback cb,ListView lv){
         touchCallback = cb;
+        listview = lv;
         containerView = (RelativeLayout)v.findViewById(R.id.list_item_container_view);
         tileView = (LinearLayout)v.findViewById(R.id.list_item_main_tile);
         imgPlayer = (ImageView)v.findViewById(R.id.imgPlayer);
@@ -58,6 +61,7 @@ public class PlayerListViewHolder implements View.OnTouchListener {
                 float x = event.getX() + v.getTranslationX();
                 float deltaX = x - downX;
                 if(Math.abs(deltaX)>20) {
+                    if(listview!=null) listview.requestDisallowInterceptTouchEvent(true);
                     Log.d("VH", "moving " + Float.toString(deltaX) + " in view " + Integer.toString(v.getWidth()) + " tileview width " + Integer.toString(tileView.getWidth()));
                     lastDeltaX = (int) deltaX;
                     if (deltaX > 0) {
@@ -68,14 +72,15 @@ public class PlayerListViewHolder implements View.OnTouchListener {
             }
             case MotionEvent.ACTION_UP: {
                 Log.d(LOGTAG, "action up");
+                if(listview!=null) listview.requestDisallowInterceptTouchEvent(false);
                 dropTile();
                 setMargin(0);
                 if(lastDeltaX==0){
                     //in fact - we clicked
                     Log.d(LOGTAG,"clicked on " + txtPlayerName.getText().toString());
                     if(touchCallback!=null) touchCallback.clickedPlayer(txtPlayerName.getText().toString());
-                }else if((float)lastDeltaX/(float)tileView.getWidth()>0.75){
-                    //we have slid the tile more that 75% out so delete
+                }else if((float)lastDeltaX/(float)tileView.getWidth()>0.65){
+                    //we have slid the tile more that 65% out so delete
                     if(touchCallback!=null) touchCallback.deletePlayer(txtPlayerName.getText().toString());
                     break;
                 }

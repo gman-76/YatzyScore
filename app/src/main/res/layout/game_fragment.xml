@@ -4,27 +4,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    >
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbarCurrentGame"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        >
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tbCurrentGame"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            >
+
+            <TextView
+                android:id="@+id/tbCurrentGameTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/menuText"/>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <TextView
+        android:id="@+id/txtNextPlayerQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/current_game_next_player_question"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="16dp"
+        android:paddingLeft="16dp"
+        android:background="@color/colorPrimaryLight"
+        android:textColor="@android:color/white"
+        android:layout_below="@id/appbarCurrentGame"
+        android:textStyle="bold"/>
+
+    <ListView
+        android:id="@+id/lstNextPlayer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_below="@id/txtNextPlayerQuestion">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Who is next?"
-            android:layout_marginBottom="32dp"/>
-
-        <ListView
-            android:id="@+id/lstNextPlayer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </ListView>
-
-    </LinearLayout>
+    </ListView>
 
     <android.support.design.widget.FloatingActionButton
         app:fabSize="normal"

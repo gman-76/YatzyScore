@@ -5,9 +5,25 @@
     android:orientation="horizontal"
     android:padding="16dp">
 
+    <ImageView
+        android:id="@+id/imgSBPlayerGameDetail"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"/>
+
+    <TextView
+        android:id="@+id/txtSBPosition"
+        android:layout_width="24dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        />
+
     <TextView
         android:id="@+id/txtSBPlayerName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_marginRight="16dp"
         android:layout_marginEnd="16dp"
@@ -15,7 +31,7 @@
 
     <TextView
         android:id="@+id/txtSBPlayerScore"
-        android:layout_width="wrap_content"
+        android:layout_width="32dp"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

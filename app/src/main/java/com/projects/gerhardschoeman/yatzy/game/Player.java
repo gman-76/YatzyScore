@@ -22,6 +22,9 @@ public class Player {
     private byte[] photo;
     private int gameType;
     private boolean bonus;
+    private int bonusScore;
+    private int upperTotal;
+    private int lowerTotal;
 
     private ArrayList<ScoreGroup> availableMoves = new ArrayList<>();
 
@@ -65,6 +68,12 @@ public class Player {
         return bonus;
     }
 
+    public int getBonusScore(){
+        return bonusScore;
+    }
+
+    public int getGameType(){ return gameType; }
+
     public void createMovesFor(int gameType){
         availableMoves = ScoreGroupFactory.getListByType(gameType);
     }
@@ -76,6 +85,10 @@ public class Player {
                 break;
             }
         }
+    }
+
+    public ArrayList<ScoreGroup> getMoveHistory(){
+        return availableMoves;
     }
 
     public ArrayList<ScoreGroup> getAvailableMoves(){
@@ -108,27 +121,31 @@ public class Player {
     }
 
     public int getTotalScore(){
-        int upperSection = 0;
-        int lowerSection = 0;
+        upperTotal = 0;
+        lowerTotal = 0;
+        bonusScore = 0;
         bonus = false;
         for(ScoreGroup sg:availableMoves){
             if(sg.hasPlayed()){
-                if(sg.isUpperSection()) upperSection += sg.getMarkedScore(); else lowerSection += sg.getMarkedScore();
+                if(sg.isUpperSection()) upperTotal += sg.getMarkedScore(); else lowerTotal += sg.getMarkedScore();
             }
         }
-        if(upperSection>=63) {
+        if(upperTotal>=63) {
             bonus=true;
             switch (gameType) {
                 case Game.GameTypes.YATZY:
-                    upperSection += 50;
+                    bonusScore = 50;
                     break;
                 case Game.GameTypes.YAHTZEE:
-                    upperSection += 35;
+                    bonusScore = 35;
                     break;
             }
         }
-        return upperSection + lowerSection;
+        return upperTotal + lowerTotal + bonusScore;
     }
+
+    public int getUpperTotal() { return upperTotal; }
+    public int getLowerTotal() { return lowerTotal; }
 
     public int getMovesRemaining(){
         int ret = 0;

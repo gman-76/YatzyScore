@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -53,14 +54,15 @@ public class PlayersFragment extends Fragment implements LoaderManager.LoaderCal
         ad.viewholderCallback = this;
 
         ListView lv = (ListView)rootView.findViewById(R.id.lstPlayers);
+        ad.listview = lv;
         lv.setAdapter(ad);
 
-        lv.setOnTouchListener(new View.OnTouchListener() {
+        /*lv.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return false;
             }
-        });
+        });*/
 
         final PlayersFragment thisFragment = this;
 
@@ -71,6 +73,16 @@ public class PlayersFragment extends Fragment implements LoaderManager.LoaderCal
                 EditPlayerDialog dg = new EditPlayerDialog();
                 dg.setDlgCallback(thisFragment);
                 dg.show(getFragmentManager(), EDITDLGTAG);
+            }
+        });
+
+        Toolbar tb = (Toolbar)rootView.findViewById(R.id.tbPlayerList);
+        tb.setNavigationIcon(R.drawable.menu);
+        tb.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToolbarNavMenuCallbacks cb = (MainActivity) getActivity();
+                cb.onClicked();
             }
         });
 

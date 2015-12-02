@@ -14,6 +14,7 @@ import com.projects.gerhardschoeman.yatzy.data.DataContract.GameHistory;
 import com.projects.gerhardschoeman.yatzy.data.DataContract.GameEntry;
 import com.projects.gerhardschoeman.yatzy.data.DataContract.PlayerEntry;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 /**
@@ -272,6 +273,21 @@ public class DataProvider extends ContentProvider {
                 db.delete(GameHistory.TABLE_NAME,selection,selectionArgs);
                 selection = PlayerEntry._ID + "=?";
                 ret = db.delete(PlayerEntry.TABLE_NAME,selection,selectionArgs);
+                //get a list of games
+                Cursor games = db.rawQuery("select " + GameEntry._ID + " from " + GameEntry.TABLE_NAME, null);
+                ArrayList<String> gameids = new ArrayList<>();
+                if(games!=null && games.moveToFirst()){
+                    do{
+                        gameids.add(games.getString(0));
+                    }while(games.moveToNext());
+                    for(String gameid:gameids){
+                        Cursor gamehistory = db.rawQuery("select * from " + GameHistory.TABLE_NAME + " where " + GameHistory.COL_GAMEID + "=" + gameid, null);
+                        if(gamehistory==null || !gamehistory.moveToFirst()){
+                            Log.d(LOGTAG,"Deleting game id " + gameid + " because it has no more player history");
+                            db.delete(GameEntry.TABLE_NAME,GameEntry._ID + "=?",new String[]{gameid});
+                        }
+                    }
+                }
             }
             break;
             default:

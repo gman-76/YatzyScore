@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
     <string name="app_name">Yatzy</string>
 
     <string name="title_section1">Section 1</string>
@@ -32,6 +32,9 @@
     <string name="scoreboard_title">Scoreboard</string>
 
     <string name="gamelist_toolbar_title">Game History</string>
+    <string name="playerlist_toolbar_title">Players</string>
+    <string name="about_toolbar_title">@string/app_name</string>
+    <string name="current_game_toolbar_default_title">Current game #: </string>
 
     <string name="gamelist_unfinished_group">Games in Progress</string>
     <string name="gamelist_finished_group">Finished Games</string>
@@ -41,4 +44,9 @@
     <string name="gamedetail_type">Game Type:</string>
     <string name="gamedetail_starttime">Start Time:</string>
     <string name="gamedetail_endtime">End Time:</string>
+
+    <string name="current_game_player_list_moves_remaining">You have <xliff:g id="movesremaining">%d</xliff:g> moves remaining</string>
+    <string name="current_game_next_player_question">Who is next?</string>
+
+    <string name="about_text">Yatzy is a public domain dice game similar to Yahtzee. Yatzy is most popular in the Scandinavian countries.\n\nIt can be played solitaire or by any number of players. Players take turns rolling five dice. After each roll, the player chooses which dice to keep, and which to reroll. The player must select a score or 0 after each turn.\n\nThe game ends when no player has any more moves left. The player with the highest total score wins the game.\n\nFor more information see the links: <a href="https://en.wikipedia.org/wiki/Yatzy">Wikipedia Yatzy</a></string>
 </resources>

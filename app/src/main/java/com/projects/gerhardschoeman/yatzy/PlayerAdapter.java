@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.ListView;
 
 import com.projects.gerhardschoeman.yatzy.data.DataProjections;
 
@@ -21,6 +22,8 @@ public class PlayerAdapter extends CursorAdapter {
 
     public PlayerListViewHolder.TouchCallback viewholderCallback;
 
+    public ListView listview;
+
     public PlayerAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
     }
@@ -28,7 +31,7 @@ public class PlayerAdapter extends CursorAdapter {
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         View v = LayoutInflater.from(context).inflate(R.layout.player_list_item,parent,false);
-        v.setTag(new PlayerListViewHolder(v,viewholderCallback));
+        v.setTag(new PlayerListViewHolder(v,viewholderCallback,listview));
         return v;
     }
 

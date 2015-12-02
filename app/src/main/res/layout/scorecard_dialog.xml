@@ -4,11 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ListView
+    <ExpandableListView
         android:id="@+id/lstLeaderboard"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:dividerHeight="0.5dp"
+        android:divider="#cccccc"
+        android:groupIndicator="@null">
 
-    </ListView>
+    </ExpandableListView>
 
 </LinearLayout>

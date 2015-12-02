@@ -106,7 +106,7 @@ public class Game {
         }
     }
 
-    public ArrayList<Player> getSortedByNamePlayers(){
+    public ArrayList<Player> getSortedByScoreAndNamePlayers(){
         Collections.sort(players, new Comparator<Player>() {
             @Override
             public int compare(Player lhs, Player rhs) {
@@ -144,5 +144,9 @@ public class Game {
         ContentValues cv = new ContentValues();
         cv.put(GameEntry.COL_FINISHED,endTime);
         mContext.getContentResolver().update(GameEntry.getUriFromID(id),cv,null,null);
+    }
+
+    public String getDescription(){
+        return description;
     }
 }

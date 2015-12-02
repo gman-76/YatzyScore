@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +44,7 @@ public class GameFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(LOGTAG,"Creating view");
+        Log.d(LOGTAG, "Creating view");
         View rootView = inflater.inflate(R.layout.game_fragment, container, false);
 
         ad = new NextPlayerAdapter(getActivity(),mGame.getSortedByMovesRemainingPlayers());
@@ -54,8 +55,8 @@ public class GameFragment extends Fragment {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Player p = (Player)ad.getItem(position);
-                if(p.getMovesRemaining()>0) {
+                Player p = (Player) ad.getItem(position);
+                if (p.getMovesRemaining() > 0) {
                     if (callbacks != null) callbacks.nextPlayer(mGame, p);
                 }
             }
@@ -68,6 +69,22 @@ public class GameFragment extends Fragment {
                 ScoreboardDialog dg = new ScoreboardDialog();
                 dg.setGame(mGame);
                 dg.show(getFragmentManager(), "SCOREBRDDLG");
+            }
+        });
+
+        Toolbar tb = (Toolbar)rootView.findViewById(R.id.tbCurrentGame);
+        String desc = mGame.getDescription();
+        if(desc==null || desc.length()<1){
+            tb.setTitle(getActivity().getString(R.string.current_game_toolbar_default_title) + Integer.toString(mGame.getID()));
+        }else{
+            tb.setTitle(desc);
+        }
+        tb.setNavigationIcon(R.drawable.menu);
+        tb.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToolbarNavMenuCallbacks cb = (MainActivity) getActivity();
+                cb.onClicked();
             }
         });
 

@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="#800A6C03"
+        >
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tbAbout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            >
+
+            <TextView
+                android:id="@+id/tbAboutTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_toolbar_title"
+                android:textColor="@color/menuText"/>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ImageView
+        android:id="@+id/imgAbout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/table_pencil_score"
+        android:scaleType="fitXY"
+        />
 
     <TextView
+        android:id="@+id/txtAboutTitle"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="About"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="56dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_below="@id/imgAbout"
+        android:textStyle="bold"
+        android:layout_centerInParent="true"/>
 
-</LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/txtAboutTitle">
+
+        <TextView
+            android:id="@+id/txtAboutDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/about_text"
+            android:textColorLink="@android:color/holo_blue_dark"/>
+
+    </ScrollView>
+
+</RelativeLayout>

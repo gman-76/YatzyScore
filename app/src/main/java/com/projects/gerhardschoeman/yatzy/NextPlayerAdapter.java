@@ -54,7 +54,7 @@ public class NextPlayerAdapter extends BaseAdapter {
         Player p = players.get(position);
 
         vh.name.setText(p.getName());
-        vh.moves.setText(Integer.toString(p.getMovesRemaining()));
+        vh.moves.setText(String.format(mContext.getString(R.string.current_game_player_list_moves_remaining),p.getMovesRemaining()));
         byte[] photo = p.getPhoto();
         if(photo!=null){
             vh.photo.setImageBitmap(BitmapFactory.decodeByteArray(photo,0,photo.length));

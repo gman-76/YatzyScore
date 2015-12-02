@@ -4,11 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:paddingTop="8dp"
-    android:paddingBottom="8dp">
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    android:paddingStart="16dp">
 
     <FrameLayout
-        android:layout_width="16dp"
-        android:layout_height="16dp">
+        android:layout_width="56dp"
+        android:layout_height="56dp">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -21,18 +23,37 @@
             />
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/txtNextPlayerName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="56dp"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"/>
+        android:layout_marginLeft="16dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txtNextPlayerRemainingMoves"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"/>
+        <TextView
+            android:id="@+id/txtNextPlayerName"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:text="Test"
+            android:singleLine="true"
+            android:layout_gravity="center_vertical"
+            />
+
+        <TextView
+            android:id="@+id/txtNextPlayerRemainingMoves"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:text="you have x remaining"
+            />
+
+    </LinearLayout>
+
+
 
 </LinearLayout>
